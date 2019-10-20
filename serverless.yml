@@ -23,6 +23,17 @@ service: aws-lambda-thumbnail-generator
 provider:
   name: aws
   runtime: python2.7
+  region: us-east-1
+  profile: serverless-admin
+  timeout: 10
+  memory: 128
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource: "*"
+  environment:
+    THUMBNAIL_SIZE: "128"
 
 # you can overwrite defaults here
 #  stage: dev
