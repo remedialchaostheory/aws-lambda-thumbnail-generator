@@ -35,10 +35,6 @@ provider:
   environment:
     THUMBNAIL_SIZE: "128"
 
-# you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
-
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
 #    - Effect: "Allow"
@@ -68,9 +64,18 @@ provider:
 #    - exclude-me.py
 #    - exclude-me-dir/**
 
+custom:
+  bucket: rct-s3-thumbnail-generator
+
 functions:
-  hello:
-    handler: handler.hello
+  s3_thumbnail_generator:
+    handler: handler.s3_thumbnail_generator
+    events:
+      - s3:
+          bucket: ${self:custom.bucket}
+          event: s3:ObjectCreated:*
+          rules:
+            - suffix: .png
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
