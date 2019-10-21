@@ -1,6 +1,6 @@
 import boto3
 from io import BytesIO
-from PIL import Image
+from PIL import Image, ImageOps
 import os
 
 s3 = boto3.client('s3')
@@ -30,5 +30,7 @@ def get_s3_image(bucket, key):
 
 def image_to_thumbnail(image):
     dimensions = (size, size)
-    return image.thumbnail(dimensions)
+    return ImageOps.fit(image, dimensions)
+
+
 
