@@ -66,6 +66,8 @@ provider:
 
 custom:
   bucket: rct-s3-thumbnail-generator
+  pythonRequirements:
+    dockerizePip: true
 
 functions:
   s3_thumbnail_generator:
@@ -76,6 +78,9 @@ functions:
           event: s3:ObjectCreated:*
           rules:
             - suffix: .png
+
+plugins:
+  - serverless-python-requirements
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

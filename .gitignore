@@ -17,6 +17,7 @@ var/
 .installed.cfg
 *.egg
 .idea/
+node_modules/
 
 # Serverless directories
 .serverless
