@@ -22,7 +22,7 @@ service: aws-lambda-thumbnail-generator
 
 provider:
   name: aws
-  runtime: python2.7
+  runtime: python3.7
   region: us-east-1
   profile: serverless-admin
   timeout: 10
