@@ -27,6 +27,7 @@ provider:
   profile: serverless-admin
   timeout: 10
   memory: 128
+  # TODO - restrict IAM role statements to only necessary ones
   iamRoleStatements:
     - Effect: "Allow"
       Action:
