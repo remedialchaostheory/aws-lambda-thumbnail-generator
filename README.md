@@ -6,5 +6,5 @@ Utilizes the [Serverless Framework](https://serverless.com/) for fast deployment
 
 AWS services: s3, Lambda, CloudFormation
 
-Other: Docker, Pillow (Python dependency)
+Other: Python, Docker, Pillow (Python dependency)
 
