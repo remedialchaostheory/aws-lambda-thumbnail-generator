@@ -13,12 +13,23 @@ def s3_thumbnail_generator(event, context):
     bucket = event['Records'][0]['s3']['bucket']['name']
     key = event['Records'][0]['s3']['object']['key']
 
-    if not key.endswith("_thumbnail.png"):
+    print('is_thumbnail(key)', is_thumbnail(key))
+
+    if not is_thumbnail(key):
         image = get_s3_image(bucket, key)
         print('image', image)
         thumbnail = image_to_thumbnail(image)
         print('thumbnail', thumbnail)
         thumbnail_key = new_filename(key)
+        print('thumbnail_key', thumbnail_key)
+
+
+def is_thumbnail(key):
+    # TODO - can improve this so search term is last in filename
+    if key.find("_thumbnail.") == -1:
+        return False
+    else:
+        return True
 
 
 def get_s3_image(bucket, key):

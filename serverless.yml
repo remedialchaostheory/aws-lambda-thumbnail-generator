@@ -78,6 +78,11 @@ functions:
           event: s3:ObjectCreated:*
           rules:
             - suffix: .png
+      - s3:
+          bucket: ${self:custom.bucket}
+          event: s3:ObjectCreated:*
+          rules:
+            - suffix: .jpg
 
 plugins:
   - serverless-python-requirements
