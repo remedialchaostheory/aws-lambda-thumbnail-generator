@@ -11,18 +11,16 @@ size = int(os.environ['THUMBNAIL_SIZE'])
 def s3_thumbnail_generator(event, context):
     bucket = event['Records'][0]['s3']['bucket']['name']
     key = event['Records'][0]['s3']['object']['key']
-    print('bucket', bucket)
-    print('key', key)
-
-    print('is_thumbnail(key)', is_thumbnail(key))
+    print("bucket", bucket)
+    print("key", key)
 
     if not is_thumbnail(key):
         image = get_s3_image(bucket, key)
-        print('image', image)
+        print("image", image)
         thumbnail = image_to_thumbnail(image)
-        print('thumbnail', thumbnail)
+        print("thumbnail", thumbnail)
         thumbnail_key = new_filename(key)
-        print('thumbnail_key', thumbnail_key)
+        print("thumbnail_key", thumbnail_key)
         url = upload_to_s3(bucket, thumbnail_key, thumbnail)
         return url
 
@@ -30,6 +28,7 @@ def s3_thumbnail_generator(event, context):
 def is_thumbnail(key):
     # TODO - can improve this so search term is last in filename
     if key.find("_thumbnail.") > -1:
+        print("Is thumbnail already. Will not process!")
         return True
     return False
 
@@ -68,7 +67,8 @@ def upload_to_s3(bucket, key, image):
         ContentType='image/'+file_extension,
         Key=key
     )
-    print('response', response)
+    print("response", response)
 
     url = f"{s3.meta.endpoint_url}/{bucket}/{key}"
     print("url", url)
+    return url
